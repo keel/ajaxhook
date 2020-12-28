@@ -6,7 +6,7 @@ Hook AJAX(XMLHttpRequest) functions, and do what you like.
 * No ES5/ES6 needed, so it has wide compatibility;
 * Can be used with any js lib(jquery, react, vue...),or any minigame enviroment(Wechat minigame/miniprogram,Facebook Instant Games...);
 * Only for js client environment, which 'XMLHttpRequest' is available, not for node.js;
-* Official API ref: https://developer.mozilla.org/docs/Web/API/XMLHttpRequest;
+* Support all official API: https://developer.mozilla.org/docs/Web/API/XMLHttpRequest;
 * Author: Keel(https://github.com/keel);
  */
 function __ajax_hook(hookConfig) {
@@ -99,6 +99,8 @@ function __ajax_unhook() {
 // __ajax_hook({
 //   'open': function(rxhr, method, url, async, user, password) {
 //     console.log('====> _hook[open]:', method, url, async, user, password);
+//     // "this" is the new xhr which replaced the orginal XMLHttpRequest;
+//     // use "this.newProps" to save open's paras;
 //     if (!this.newProps) {
 //       this.newProps = {
 //         'headers': {}
@@ -109,6 +111,7 @@ function __ajax_unhook() {
 //     this.newProps.async = async;
 //     this.newProps.user = user;
 //     this.newProps.password = password;
+//     //continue open function or not
 //     return rxhr.open(method, url, async, user, password);
 //   },
 //   'setRequestHeader': function(rxhr, key, val) {
@@ -118,8 +121,11 @@ function __ajax_unhook() {
 //   },
 //   'send': function(rxhr, data) {
 //     console.log('====> _hook[send]',this.newProps);
-//     rxhr.open(this.newProps.method,'https://gacdn.gametdd.com/static/jxqg/style-desktop.css',true);
-//     for(const i in this.newProps.headers){
+//     if(this.newProps.url === 'https://www.google.com'){
+//       // change the specific url to another url:
+//       rxhr.open(this.newProps.method,'https://www.apple.com',true);
+//     }
+//     for(var i in this.newProps.headers){
 //       rxhr.setRequestHeader(i,this.newProps.headers[i]);
 //     }
 //     return rxhr.send(data);
