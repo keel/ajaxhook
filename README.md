@@ -1,8 +1,9 @@
 # ajaxHook
 Hook AJAX(XMLHttpRequest) functions, and modify or log all ajax requests.
+[中文说明](README_cn.md)
 
 # Description:
-* Hook all XMLHttpRequest functions, modify all the ajax requests of your app;
+* Replace the original XMLHttpRequest object to hook all xhr functions, so you can modify all ajax requests of your app;
 * Zero dependency;
 * Simple and small, only 60+ lines;
 * Friendly hook api, just like the orginal functions;
@@ -22,14 +23,14 @@ Hook AJAX(XMLHttpRequest) functions, and modify or log all ajax requests.
 ### hook xhr functions and events:
 ```
 __ajax_hook({
-  //Hook functions(like "open"): rxhr is the real orginal XMLHttpRequest, other paras is the original function's paras;
+  //Hook functions(like "open"): rxhr is the real orginal XMLHttpRequest, other paras are the original function's paras;
   'open': function(rxhr, method, url, async, user, password) {
     console.log('====> _hook[open]:', method, url, async, user, password);
     console.log('====> this:', this.isHook); // "this" is the new xhr which replaced the orginal XMLHttpRequest;
     return rxhr.open(method, url, async, user, password);
   },
 
-  //Hook events(like "onXXX"): xhr is the replaced xhr object, other paras is the original event's paras;
+  //Hook events(like "onXXX"): xhr is the replaced xhr object, other paras are the original event's paras;
   'onload': function(xhr, event) {
     console.log('====> _hook[onload]');
     console.log('====> this:', this.isHook); // "this" is the new xhr which replaced the orginal XMLHttpRequest;
