@@ -23,7 +23,7 @@ yarn-error.log*
 
 
 #Build generated
-dist/
+# dist/
 build/
 
 # workspace files are user-specific
