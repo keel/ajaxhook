@@ -17,6 +17,11 @@ Hook AJAX(XMLHttpRequest) 所有方法,在不影响原应用基础上进行全�
 <script src="yourJsPath/ajaxhook.min.js"></script>
 ```
 
+或:
+
+```
+npm install hook-ajax
+```
 
 ## 使用方法
 ### hook xhr 方法和事件:

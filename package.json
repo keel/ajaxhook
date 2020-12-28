@@ -1,5 +1,5 @@
 {
-  "name": "ajaxhook",
+  "name": "hook-ajax",
   "version": "1.0.0",
   "description": "Hook AJAX(XMLHttpRequest) functions, and modify or log all ajax requests.",
   "main": "dist/ajaxhook.min.js",

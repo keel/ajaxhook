@@ -18,6 +18,11 @@ Hook AJAX(XMLHttpRequest) functions, and modify or log all ajax requests.
 <script src="yourJsPath/ajaxhook.min.js"></script>
 ```
 
+or:
+
+```
+npm install hook-ajax
+```
 
 ## Useage
 ### hook xhr functions and events:
