@@ -1,0 +1,27 @@
+{
+  "name": "ajaxhook",
+  "version": "1.0.0",
+  "description": "Hook AJAX(XMLHttpRequest) functions, and modify or log all ajax requests.",
+  "main": "dist/ajaxhook.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keel/ajaxhook.git"
+  },
+  "keywords": [
+    "ajax",
+    "hook",
+    "XMLHttpRequest",
+    "jquery",
+    "react",
+    "vue"
+  ],
+  "author": "Keel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/keel/ajaxhook/issues"
+  },
+  "homepage": "https://github.com/keel/ajaxhook#readme"
+}
