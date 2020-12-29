@@ -74,7 +74,7 @@ There's a "sample" directory for test;
 __ajax_hook({
   'open': function(method, url, async, user, password) {
     console.log('====> _hook[open]:', method, url, async, user, password);
-    // change the specific url to another url, to avoid domain cross, try to modify jquery 1.10.2 change to 3.2.1:
+    // change the specific url to another url, to avoid domain cross, try to modify jquery 1.10.2 to 3.2.1:
     if (method === 'GET' && url === 'https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js') {
       url = 'https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js';
       //"this" is the new XHR which replaced the orginal XMLHttpRequest;
@@ -93,13 +93,13 @@ __ajax_hook({
   },
   'onreadystatechange': function(event) {
     console.log('====> _hook[onreadystatechange]', this.xhr.readyState);
-    //when readyState is 4, change the responseText.
+    //when readyState is 4 and status is 200, change the responseText.
     if (this.xhr.readyState === 4 && this.xhr.status == 200) {
       //use "this.updateXhr" to update xhr props, event the real XMLHttpRequest.responseText is "read only";
       this.updateXhr('responseText', '/* ===hooked=== */' + this.xhr.responseText); //keep the changed value is rignt data-type, or there's a "parsererror" will be throw.
     }
 
-    // call the original event(other js set to xhr) if it existed, or stop call it if you like
+    // call the original event(other js code set to XHR) if it existed, or stop call it if you like
     if (this.onreadystatechange) {
       this.onreadystatechange(event);
     }
