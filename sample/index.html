@@ -10,7 +10,7 @@
 
 <body>
   <textarea name="reTxt" id="reTxt" cols="50" rows="20"></textarea><br />
-  hook and replace url: <button id="testBt">TEST</button>  | <button id="stopBt">Stop Hook</button><br />
+  hook and replace url: <button id="testBt">TEST</button> | <button id="stopBt">Stop Hook</button><br />
   <br />
   Press "TEST", the request to jquery1.10.2 will be hooked and changed;<br />
   Press "Stop Hook", and then press "TEST", there's no hook effects;<br />
@@ -53,7 +53,7 @@
   });
 
 
-  //original app ajax functions
+  //original app use jquery get function
   $('#testBt').click(function() {
     $('#reTxt').val('loading...');
     $.get('https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js', function(result) {
@@ -64,6 +64,38 @@
       console.error(e);
     });
   });
+
+  // use jquery.ajax function
+  // $('#testBt').click(function() {
+  //   $('#reTxt').val('loading...');
+  //   $.ajax({
+  //     'url':'https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js',
+  //     'type':'GET',
+  //     'success': function(result){
+  //       console.log('Get done.');
+  //       $('#reTxt').val(result);
+  //     },
+  //     'error': function(e){
+  //       console.log('Fail!!!');
+  //       console.error(e);
+  //     },
+  //   });
+  // });
+
+  // use XMLHttpRequest directly
+  // $('#testBt').click(function() {
+  //   $('#reTxt').val('loading...');
+  //   var xhr = new XMLHttpRequest();
+  //   xhr.onload = function() { //onload after onreadystatechange, so hook onreadystatechange will be OK.
+  //     if (xhr.status === 200) {
+  //       console.log('Get done.');
+  //       $('#reTxt').val(xhr.responseText);
+  //     }
+  //   }
+  //   xhr.open('GET', 'https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js');
+  //   xhr.send(null);
+  // });
+
 
   //stop hook: Press "Stop Hook", and then press "TEST", there's no hook effects;
   $('#stopBt').click(function() {

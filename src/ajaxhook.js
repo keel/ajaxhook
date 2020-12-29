@@ -23,8 +23,8 @@ function __ajax_hook(hookConfig) {
     var me = this;
     me.isHook = 1; /* add a hooked tag */
     me.DONE = 4;
-    me.HEADERS_RECEIVED = 2;
     me.LOADING = 3;
+    me.HEADERS_RECEIVED = 2;
     me.OPENED = 1;
     me.UNSENT = 0;
     var i = 0;
@@ -40,7 +40,7 @@ function __ajax_hook(hookConfig) {
       }
     };
     me.updateProps = function() {
-      if (me.xhr.readyState < 2) {
+      if (me.xhr.readyState < 1) {
         me.xhr.responseType = me['responseType'] || me.xhr.responseType;
         me.xhr.timeout = me['timeout'] || me.xhr.timeout;
         me.xhr.withCredentials = me['withCredentials'] || me.xhr.withCredentials;
