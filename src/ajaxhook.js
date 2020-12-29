@@ -6,12 +6,12 @@ Hook AJAX(XMLHttpRequest) functions, and do what you like.
 * Support modifing the read only xhr props, like responseText;
 * Support all official API: https://developer.mozilla.org/docs/Web/API/XMLHttpRequest ;
 * Zero dependency;
-* Simple and small, only 70+ lines;
+* Simple and small, source code only 70+ lines, mini file only 1K(not gzip);
 * Friendly hook api, just like the orginal functions;
 * No ES5/ES6 needed, so it has wide compatibility;
 * Can be used with any js lib(jquery, react, vue...),or any minigame enviroment(Wechat minigame/miniprogram,Facebook Instant Games...);
 * Only for js client environment, which 'XMLHttpRequest' is available, not for node.js;
-* Author: Keel(https://github.com/keel) ;
+* Author: [Keel](https://github.com/keel) ;
  */
 function __ajax_hook(hookConfig) {
   var __orgXhr = '__xhr_org';
