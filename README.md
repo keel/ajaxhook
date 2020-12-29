@@ -10,10 +10,12 @@ Hook AJAX(XMLHttpRequest) functions, and modify or log all ajax requests.
 * Zero dependency;
 * Simple and small, source code only 70+ lines, mini file only 1K(not gzip);
 * Friendly hook api, just like the orginal functions;
-* No ES5/ES6 needed, so it has wide compatibility;
+* No ES5/ES6 needed, so it has wide compatibility. It's not use ES5 getter and setter, only use original API;
 * Can be used with any js lib(jquery, react, vue...),or any minigame enviroment(Wechat minigame/miniprogram,Facebook Instant Games...);
 * Only for js client environment, which 'XMLHttpRequest' is available, not for node.js;
 * Author: [Keel](https://github.com/keel) ;
+
+I don't like [ajax-hook](https://github.com/wendux/Ajax-hook)'s API, a little complex, and it's use ES5 getter and setter, so I made this project(by different way), more HOOK style.
 
 ## Install
 ```
@@ -41,7 +43,7 @@ __ajax_hook({
     return this.xhr.open(method, url, async, user, password);
   },
 
-  //Hook events(like "onXXX"):
+  //Hook events(like "onXXX"): "onreadystatechange" is before "onload" and "onloadend", so hook "onreadystatechange" when modify responseText
   'onreadystatechange': function(event) {
     console.log('====> _hook[onreadystatechange]', this.xhr.readyState);
     //"this" is the new XHR which replaced the orginal XMLHttpRequest;
@@ -91,6 +93,7 @@ __ajax_hook({
     }
     return this.xhr.send(data);
   },
+  // "onreadystatechange" is before "onload" and "onloadend", so hook "onreadystatechange" when modify responseText
   'onreadystatechange': function(event) {
     console.log('====> _hook[onreadystatechange]', this.xhr.readyState);
     //when readyState is 4 and status is 200, change the responseText.

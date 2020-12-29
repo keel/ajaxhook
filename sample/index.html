@@ -36,6 +36,7 @@
       }
       return this.xhr.send(data);
     },
+    // "onreadystatechange" is before "onload" and "onloadend", so hook "onreadystatechange" when modify responseText
     'onreadystatechange': function(event) {
       console.log('====> _hook[onreadystatechange]', this.xhr.readyState);
       //when readyState is 4 and status is 200, change the responseText.

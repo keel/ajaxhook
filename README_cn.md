@@ -8,10 +8,13 @@ Hook AJAX(XMLHttpRequest) 所有方法,在不影响原应用基础上进行全�
 * 零依赖;
 * 源码简单体积小, 源码只有 70+ 行, mini后只有1K(未进行gzip);
 * 友好的hook api;
-* 无ES5/ES6需求, 保持最大的适配性;
+* 无ES5/ES6需求, 保持最大的适配性; 这里没有使用ES5的setter, getter, 完全使用XMLHttpRequest的原生API定义;
 * 可以与其他的js库并存(jquery, react, vue...),或其他小程序,小游戏环境(微信小程序,小游戏,OPPO,VIVO,华为,字节等小程序或小游戏环境);
 * 注意只兼容'XMLHttpRequest'有效的环境, 不支持node.js;
 * Author: [Keel](https://github.com/keel) ;
+
+个人不太喜欢 [ajax-hook](https://github.com/wendux/Ajax-hook)的 API, 有点小复杂, 而且需要用到 ES5 的getter和setter, 所以造了这个轮子, 思路略有不同, API更有HOOk风格.
+
 
 ## 安装
 ```
@@ -39,7 +42,7 @@ __ajax_hook({
     return this.xhr.open(method, url, async, user, password);
   },
 
-  //Hook 事件(如: "onXXX"):
+  //Hook 事件(如: "onXXX"): 因为onreadystatechange在onload和onloadend之前, 所以这里hook onreadystatechange来修改responseText,不再需要hook "onload"方法
   'onreadystatechange': function(event) {
     console.log('====> _hook[onreadystatechange]', this.xhr.readyState);
     //"this" 是替换后的新的XMLHttpRequest对象;
