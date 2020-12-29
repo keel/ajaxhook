@@ -15,7 +15,7 @@ Hook AJAX(XMLHttpRequest) functions, and modify or log all ajax requests.
 * Only for js client environment, which 'XMLHttpRequest' is available, not for node.js;
 * Author: [Keel](https://github.com/keel) ;
 
-I don't like [ajax-hook](https://github.com/wendux/Ajax-hook)'s API, a little complex, and it's use ES5 getter and setter, so I made this project(by different way), more HOOK style.
+I don't like [ajax-hook](https://github.com/wendux/Ajax-hook)'s API(a little complex API), and it use ES5 getter and setter, so I made this project(by different way), more HOOK style.
 
 ## Install
 ```

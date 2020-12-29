@@ -13,7 +13,7 @@ Hook AJAX(XMLHttpRequest) 所有方法,在不影响原应用基础上进行全�
 * 注意只兼容'XMLHttpRequest'有效的环境, 不支持node.js;
 * Author: [Keel](https://github.com/keel) ;
 
-个人不太喜欢 [ajax-hook](https://github.com/wendux/Ajax-hook)的 API, 有点小复杂, 而且需要用到 ES5 的getter和setter, 所以造了这个轮子, 思路略有不同, API更有HOOk风格.
+个人不太喜欢 [ajax-hook](https://github.com/wendux/Ajax-hook)的 API(API有点小复杂), 而且需要用到 ES5 的getter和setter, 所以造了这个轮子, 思路略有不同, API更有HOOK风格.
 
 
 ## 安装
