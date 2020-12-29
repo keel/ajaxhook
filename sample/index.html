@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Ajaxhook test</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script src="../dist/ajaxhook.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <textarea name="reTxt" id="reTxt" cols="50" rows="20"></textarea><br />
+  hook and replace url: <button id="testBt">TEST</button>  | <button id="stopBt">Stop Hook</button><br />
+  <br />
+  Press "TEST", the request to jquery1.10.2 will be hooked and changed;<br />
+  Press "Stop Hook", and then press "TEST", there's no hook effects;<br />
+  <script>
+  //hook first
+  __ajax_hook({
+    'open': function(method, url, async, user, password) {
+      console.log('====> _hook[open]:', method, url, async, user, password);
+      // change the specific url to another url, to avoid domain cross, try to modify jquery 1.10.2 change to 3.2.1:
+      if (method === 'GET' && url === 'https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js') {
+        url = 'https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js';
+        //"this" is the new XHR which replaced the orginal XMLHttpRequest;
+        this.hookTag = 'getTest'; //add a changed tag if needed;
+      }
+      // continue open function or not
+      return this.xhr.open(method, url, async, user, password);
+    },
+    'send': function(data) {
+      console.log('====> _hook[send]', this.hookTag, data);
+      if (this.hookTag === 'postTest') {
+        // change post data if this is a POST request
+        data += '&hooked=true';
+      }
+      return this.xhr.send(data);
+    },
+    'onreadystatechange': function(event) {
+      console.log('====> _hook[onreadystatechange]', this.xhr.readyState);
+      //when readyState is 4, change the responseText.
+      if (this.xhr.readyState === 4 && this.xhr.status == 200) {
+        //use "this.updateXhr" to update xhr props, event the real XMLHttpRequest.responseText is "read only";
+        this.updateXhr('responseText', '/* ===hooked=== */' + this.xhr.responseText); //keep the changed value is rignt data-type, or there's a "parsererror" will be throw.
+      }
+
+      // call the original event(other js set to xhr) if it existed, or stop call it if you like
+      if (this.onreadystatechange) {
+        this.onreadystatechange(event);
+      }
+    },
+  });
+
+
+  //original app ajax functions
+  $('#testBt').click(function() {
+    $('#reTxt').val('loading...');
+    $.get('https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js', function(result) {
+      console.log('Get done.');
+      $('#reTxt').val(result);
+    }).fail(function(e) {
+      console.error('Fail!!!');
+      console.error(e);
+    });
+  });
+
+  //stop hook: Press "Stop Hook", and then press "TEST", there's no hook effects;
+  $('#stopBt').click(function() {
+    __ajax_unhook();
+  });
+  </script>
+</body>
+
+</html>
