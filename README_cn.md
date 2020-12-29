@@ -7,7 +7,7 @@ Hook AJAX(XMLHttpRequest) 所有方法,在不影响原应用基础上进行全�
 * 支持 XMLHttpRequest 所有官方API: https://developer.mozilla.org/docs/Web/API/XMLHttpRequest ;
 * 零依赖;
 * 源码简单体积小, 只有 70+ 行;
-* 友好的hook api,仅在原方法上添加第1个参数;
+* 友好的hook api;
 * 无ES5/ES6需求, 保持最大的适配性;
 * 可以与其他的js库并存(jquery, react, vue...),或其他小程序,小游戏环境(微信小程序,小游戏,OPPO,VIVO,华为,字节等小程序或小游戏环境);
 * 注意只兼容'XMLHttpRequest'有效的环境, 不支持node.js;
