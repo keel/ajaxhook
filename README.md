@@ -1,7 +1,7 @@
 # ajaxHook
 Hook AJAX(XMLHttpRequest) functions, and modify or log all ajax requests.
 
-[中文说明](README_cn.md)
+[点击此处查看中文说明](README_cn.md)
 
 # Description:
 * Replace the original XMLHttpRequest object to hook all xhr functions, so you can modify all ajax requests of your app;
@@ -52,7 +52,7 @@ __ajax_hook({
     //when readyState is 4 and status is 200, change the responseText.
     if (this.xhr.readyState === 4 && this.xhr.status == 200) {
       //use "this.updateXhr" to modify XHR props, event the real XMLHttpRequest.responseText is "read only";
-      this.updateXhr('responseText', '/* ===hooked=== */' + this.xhr.responseText); //keep the changed value is rignt data-type, or there's a "parsererror" will be throw.
+      this.updateXhr('responseText', '/* ===hooked=== */' + this.xhr.responseText); //keep the changed value in rignt data-type, or there's a "parsererror" will be throw.
     }
 
     // call the original event(other js set to XHR) if it existed, to make the original call continue, or stop call it if you like;
@@ -63,7 +63,7 @@ __ajax_hook({
 });
 ```
 
-### unkook:
+### unhook:
 ```
 __ajax_unhook();
 ```

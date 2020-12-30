@@ -14,10 +14,9 @@ Hook AJAX(XMLHttpRequest) functions, and do what you like.
 * Author: [Keel](https://github.com/keel) ;
  */
 function __ajax_hook(hookConfig) {
-  var __orgXhr = '__xhr_org';
-  window[__orgXhr] = window[__orgXhr] || XMLHttpRequest;
+  window['__xhr_org'] = window['__xhr_org'] || XMLHttpRequest;
   XMLHttpRequest = function() {
-    var xhr = new window[__orgXhr]();
+    var xhr = new window['__xhr_org']();
     this.xhr = xhr;
     this.hookConfig = hookConfig;
     var me = this;
@@ -29,18 +28,23 @@ function __ajax_hook(hookConfig) {
     me.UNSENT = 0;
     var i = 0;
     var len = 0;
-    var props = ['readyState', 'response', 'responseText', 'responseType', 'responseURL', 'responseXML', 'status', 'statusText', 'timeout', 'upload', 'withCredentials'];
+    var props = ['readyState', 'response', 'responseType', 'responseText', 'responseURL', 'responseXML', 'status', 'statusText', 'timeout', 'upload', 'withCredentials'];
     me.newPropMap = {};
     me.syncProps = function() {
       for (i = 0, len = props.length; i < len; i++) {
         var p = props[i];
         if (!me.newPropMap[p]) {
+          if (p === 'responseText' && me.xhr.responseType !== 'text' && me.xhr.responseType !== '') {
+            continue;
+          } else if (p === 'responseXML' && me.xhr.responseType !== 'document' && me.xhr.responseType !== '') {
+            continue;
+          }
           me[p] = me.xhr[p];
         }
       }
     };
     me.updateProps = function() {
-      if (me.xhr.readyState < 1) {
+      if (me.xhr.readyState < 2) {
         me.xhr.responseType = me['responseType'] || me.xhr.responseType;
         me.xhr.timeout = me['timeout'] || me.xhr.timeout;
         me.xhr.withCredentials = me['withCredentials'] || me.xhr.withCredentials;
@@ -60,7 +64,7 @@ function __ajax_hook(hookConfig) {
     };
     me.regFun = function(fnName) {
       me[fnName] = function() {
-        me.updateProps();
+        me.updateProps(); /* update the props which are not read-only before the function called. */
         var args = [].slice.call(arguments);
         if (me.hookConfig && me.hookConfig[fnName]) {
           return me.hookConfig[fnName].apply(me, args);
@@ -73,7 +77,7 @@ function __ajax_hook(hookConfig) {
         me[regFnName](regArr[i]);
       }
     };
-    me.updateXhr = function (key, val) { /* use updateXhr to update XHR props */
+    me.updateXhr = function(key, val) { /* use updateXhr to update XHR props */
       me[key] = val;
       me.newPropMap[key] = 1;
     };
@@ -83,6 +87,8 @@ function __ajax_hook(hookConfig) {
     me.doReg('regEvent', events);
   };
 }
+
 function __ajax_unhook() {
   XMLHttpRequest = window['__xhr_org'] || XMLHttpRequest;
+  window['__xhr_org'] = null;
 }

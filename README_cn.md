@@ -2,14 +2,14 @@
 Hook AJAX(XMLHttpRequest) 所有方法,在不影响原应用基础上进行全局的AJAX修改,或打日志进行分析.
 
 # 描述:
-* 通过替换原 XMLHttpRequest 对象来hook所有的XMLHttpRequest方法;
+* 通过替换原 XMLHttpRequest 对象来hook所有的XMLHttpRequest方法, 本项目参考XMLHttpRequest的API实现, 不直接复制XMLHttpRequest所有属性和方法;
 * 支持修改 XMLHttpRequest 只读属性,如responseText;
 * 支持 XMLHttpRequest 所有官方API: https://developer.mozilla.org/docs/Web/API/XMLHttpRequest ;
 * 零依赖;
 * 源码简单体积小, 源码只有 70+ 行, mini后只有1K(未进行gzip);
-* 友好的hook api;
+* 友好的hook api, 保持简单性和可控性;
 * 无ES5/ES6需求, 保持最大的适配性; 这里没有使用ES5的setter, getter, 完全使用XMLHttpRequest的原生API定义;
-* 可以与其他的js库并存(jquery, react, vue...),或其他小程序,小游戏环境(微信小程序,小游戏,OPPO,VIVO,华为,字节等小程序或小游戏环境);
+* 可以与其他的js库并存(jquery, react, vue...),或其他小程序,小游戏环境(微信,OPPO,VIVO,华为,字节,小米等小程序或小游戏环境);
 * 注意只兼容'XMLHttpRequest'有效的环境, 不支持node.js;
 * Author: [Keel](https://github.com/keel) ;
 
